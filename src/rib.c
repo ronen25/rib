@@ -94,7 +94,7 @@ RIB_RETCODE rib_do_lbracket(void) {
 	/* Skip to the next command after the appropriate ] if current cell is 0 */
 	if (*rib_p == 0) {
 		/* Find ] */
-		rib_progptr = strchr(rib_program, ']');
+		rib_progptr = strchr(rib_progptr, ']');
 		if (!rib_progptr)
 			return RIB_RETCODE_SYNTAXERR; /* Missing ] */
 	}
@@ -106,7 +106,7 @@ RIB_RETCODE rib_do_rbracket(void) {
 	/* Skip back to the next command after the appropriate [ if the current cell is not 0 */
 	if (*rib_p != 0) {
 		/* Find [ */
-		rib_progptr = strchr(rib_program, '[');
+		rib_progptr = strchr(rib_progptr, '[');
 		if (!rib_progptr)
 			return RIB_RETCODE_SYNTAXERR; /* Missing [ */
 	}
