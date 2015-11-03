@@ -156,7 +156,7 @@ RIB_RETCODE rib_do_program(void) {
 	RIB_RETCODE currentStatus;
 	int errorFlag = 0;
 	int instructionCount = 0;
-	char tempOutput[RIB_INPUT_SIZE];
+	char tempOutput[RIB_INPUT_SIZE] = { 0 };
 	int tempOutputLen = 0;
 
 	if (rib_debug)
@@ -178,7 +178,7 @@ RIB_RETCODE rib_do_program(void) {
 					instructionCount++;
 
 					/* If requested output, put it in the temporary buffer */
-					if (*rib_progptr == RIB_COMMAND_INPUT)
+					if (*rib_progptr == RIB_COMMAND_OUTPUT)
 						tempOutput[tempOutputLen++] = *rib_p;
 				}
 				break;
