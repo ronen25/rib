@@ -22,7 +22,7 @@
 
 void rib_init(void) {
 	/* For debugging only */
-	rib_verbose = 1;
+	rib_debug = false;
 	rib_pos = 0;
 
 	rib_initbuffs();
@@ -82,7 +82,11 @@ RIB_RETCODE rib_do_readbyte(void) {
 }
 
 RIB_RETCODE rib_do_putbyte(void) {
-	putc(*rib_p, stdout);
+	/* If we're in verbose mode, the output will be at the end of the debug output,
+	 * so we don't need to actually output anything. */
+	if (!rib_debug)
+		putc(*rib_p, stdout);
+
 	return RIB_RETCODE_OK;
 }
 
@@ -151,8 +155,11 @@ RIB_RETCODE rib_do_command(void) {
 RIB_RETCODE rib_do_program(void) {
 	RIB_RETCODE currentStatus;
 	int errorFlag = 0;
+	int instructionCount = 0;
+	char tempOutput[RIB_INPUT_SIZE];
+	int tempOutputLen = 0;
 
-	if (rib_verbose)
+	if (rib_debug)
 		printf("\nProgram loaded (%zd bytes)\n", strlen(rib_program));
 
 	/* While not at EOF, read program */
@@ -163,12 +170,19 @@ RIB_RETCODE rib_do_program(void) {
 		switch (currentStatus) {
 			case RIB_RETCODE_OK:
 				/* Print if in verbose mode */
-				if (rib_verbose)
-					printf("\n\tCommand: %c retcode %d\tp = %d\tpos = %d\n", *rib_progptr,
+				if (rib_debug) {
+					printf("\tCommand: %c retcode %d\tp = %d\tpos = %d\n", *rib_progptr,
 							currentStatus, *rib_p, rib_pos);
+
+					/* Advance instruction count and copy output to temporary buffer */
+					instructionCount++;
+
+					/* If requested output, put it in the temporary buffer */
+					if (*rib_progptr == RIB_COMMAND_INPUT)
+						tempOutput[tempOutputLen++] = *rib_p;
+				}
 				break;
 			case RIB_RETCODE_SYNTAXERR:
-				/* Print if in verbose mode */
 				printf("\nSyntax error:\n%s\n at position %zd\n", rib_program,
 						(strlen(rib_program) - (rib_progptr ? strlen(rib_progptr) : 0)));
 
@@ -186,6 +200,12 @@ RIB_RETCODE rib_do_program(void) {
 		}
 	}
 
+	/* If in verbose mode, print out the output */
+	if (rib_debug) {
+		printf("\nOutput:\n-------------------\n%s\n", tempOutput);
+		printf("\nTotal %d instructions.\n", instructionCount);
+	}
+
 	return RIB_RETCODE_OK;
 }
 
@@ -195,6 +215,8 @@ RIB_RETCODE rib_do_endprogram(void) {
 
 	/* Clear command pointer */
 	rib_progptr = rib_program;
+
+	return RIB_RETCODE_OK;
 }
 
 void rib_clearbuffs(void) {

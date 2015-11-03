@@ -54,6 +54,15 @@ int main(int argc, char **argv) {
 			rib_viewstats();
 		else if (strcmp(rib_program, "f") == 0) /* Load program from file */
 			rib_fromfile();
+		else if (strcmp(rib_program, "d") == 0) { /* Debug mode */
+			if (rib_debug)
+				rib_debug = false;
+			else
+				rib_debug = true;
+
+			/* Check flag */
+			printf(rib_debug ? "Debugging ON.\n" : "Debugging OFF.\n");
+		}
 		else {
 			/* Begin executing the program */
 			rib_do_program();

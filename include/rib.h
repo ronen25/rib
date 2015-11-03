@@ -49,12 +49,8 @@
 typedef int RIB_RETCODE;
 
 /* Booleans for configuration */
-static bool rib_verbose;
-static bool rib_interactive_input;
-
-#include <stdio.h>
-#include <stdbool.h>
-#include <ctype.h>
+bool rib_debug;
+bool rib_interactive_input;
 
 /* Init/free functions */
 void rib_init(void);
