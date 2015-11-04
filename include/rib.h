@@ -77,5 +77,6 @@ void rib_setinput(void);
 void rib_fromfile(void);
 
 char *rib_find_rbracket(char *scanbegin);
+char *rib_find_lbracket(char *scanbegin);
 
 #endif /* RIB_H */

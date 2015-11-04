@@ -90,11 +90,11 @@ RIB_RETCODE rib_do_putbyte(void) {
 	return RIB_RETCODE_OK;
 }
 
-RIB_RETCODE rib_do_lbracket(void) {
+RIB_RETCODE rib_do_lbracket(void) { /* [ */
 	/* Skip to the next command after the appropriate ] if current cell is 0 */
 	if (*rib_p == 0) {
 		/* Find ] */
-		rib_progptr = strchr(rib_progptr, ']');
+		rib_progptr = rib_find_rbracket(rib_progptr);
 		if (!rib_progptr)
 			return RIB_RETCODE_SYNTAXERR; /* Missing ] */
 	}
@@ -102,11 +102,11 @@ RIB_RETCODE rib_do_lbracket(void) {
 	return RIB_RETCODE_OK;
 }
 
-RIB_RETCODE rib_do_rbracket(void) {
+RIB_RETCODE rib_do_rbracket(void) { /* ] */
 	/* Skip back to the next command after the appropriate [ if the current cell is not 0 */
 	if (*rib_p != 0) {
 		/* Find [ */
-		rib_progptr = strchr(rib_progptr, '[');
+		rib_progptr = rib_find_lbracket(rib_progptr);
 		if (!rib_progptr)
 			return RIB_RETCODE_SYNTAXERR; /* Missing [ */
 	}
@@ -215,6 +215,7 @@ RIB_RETCODE rib_do_endprogram(void) {
 
 	/* Clear command pointer */
 	rib_progptr = rib_program;
+	rib_inputptr = NULL;
 
 	return RIB_RETCODE_OK;
 }
@@ -316,4 +317,26 @@ char *rib_find_rbracket(char *scanbegin) {
 	}
 
 	return (*p == '\0') ? NULL : p;
+}
+
+char *rib_find_lbracket(char *scanbegin) {
+	int skipcount = 0;
+	char *p = scanbegin;
+
+	/* Scan while not pointing at the beginning */
+	while (p != rib_program) {
+		if (*p == ']')
+			skipcount++;
+		else if (*p == '[') {
+			skipcount--;
+
+			/* Check if skipcount is 0 - means we found a match */
+			if (skipcount == 0)
+				return p;
+		}
+
+		p--;
+	}
+
+	return (p == rib_program) ? NULL : p;
 }
