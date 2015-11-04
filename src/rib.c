@@ -316,15 +316,15 @@ char *rib_find_rbracket(char *scanbegin) {
 		p++;
 	}
 
-	return (*p == '\0') ? NULL : p;
+	return NULL;
 }
 
 char *rib_find_lbracket(char *scanbegin) {
 	int skipcount = 0;
 	char *p = scanbegin;
 
-	/* Scan while not pointing at the beginning */
-	while (p != rib_program) {
+	/* Scan while not at the beginning of the string */
+	for (size_t i = 0; i <= strlen(rib_program) - strlen(scanbegin); i++) {
 		if (*p == ']')
 			skipcount++;
 		else if (*p == '[') {
@@ -338,5 +338,5 @@ char *rib_find_lbracket(char *scanbegin) {
 		p--;
 	}
 
-	return (p == rib_program) ? NULL : p;
+	return NULL;
 }
