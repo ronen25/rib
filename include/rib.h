@@ -76,4 +76,6 @@ void rib_viewmem(void);
 void rib_setinput(void);
 void rib_fromfile(void);
 
+char *rib_find_rbracket(char *scanbegin);
+
 #endif /* RIB_H */

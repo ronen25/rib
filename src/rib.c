@@ -295,3 +295,25 @@ void rib_fromfile(void) {
 	// TODO: Implement this
 	printf("\nTODO\n");
 }
+
+char *rib_find_rbracket(char *scanbegin) {
+	int skipcount = 0;
+	char *p = scanbegin;
+
+	/* Scan while not at end of loop */
+	while (*p != '\0') {
+		if (*p == '[')
+			skipcount++;
+		else if (*p == ']') {
+			skipcount--;
+
+			/* Check if skip count is 0 - means we found a match */
+			if (skipcount == 0)
+				return p;
+		}
+
+		p++;
+	}
+
+	return (*p == '\0') ? NULL : p;
+}
