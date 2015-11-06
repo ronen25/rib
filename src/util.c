@@ -33,8 +33,8 @@ void rib_util_printheader(const char *title, bool isBold) {
 }
 
 int rib_util_getinput(void) {
-	rib_program = fgets(rib_program, RIB_INPUT_SIZE - 1, stdin);
-	if (fgets(rib_program, RIB_INPUT_SIZE, stdin) != 0) {
+	/* Check if there is any input at all */
+	if (fgets(rib_program, RIB_INPUT_SIZE, stdin) != NULL) {
 		size_t actualLength = strlen(rib_program);
 
 		/* Sanitize newline if needed */
