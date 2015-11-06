@@ -18,13 +18,14 @@
  */	
 
 #include "rib.h"
+#include "config.h"
 
 int main(int argc, char **argv) {
 	rib_init();
 	atexit(rib_free);
 
 	/* Print header */
-	printf("Ronen's Interactive Brainfuck (RIB");
+	printf("Ronen's Interactive Brainfuck (%s)", PACKAGE_STRING);
 	printf("\n==================================================");
 	printf("\n%d bytes memory\t\tOK\n%d bytes input buffer\t\tOK", RIB_MEM_SIZE, RIB_INPUT_SIZE);
 	printf("\n%d bytes program buffer\tOK", RIB_PROGRAM_SIZE);
