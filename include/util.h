@@ -20,6 +20,12 @@
 #ifndef RIB_UTIL_H
 #define RIB_UTIL_H
 
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+#include "mem.h"
+
 /* Printing utillity methods */
 void rib_util_printheader(const char *title, bool isBold);
 int rib_util_getinput(void);
