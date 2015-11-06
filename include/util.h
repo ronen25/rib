@@ -22,5 +22,6 @@
 
 /* Printing utillity methods */
 void rib_util_printheader(const char *title, bool isBold);
+int rib_util_getinput(void);
 
 #endif /* RIB_UTIL_H */

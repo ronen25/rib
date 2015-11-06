@@ -31,3 +31,18 @@ void rib_util_printheader(const char *title, bool isBold) {
 	/* To finish, print another newline */
 	putc('\n', stdout);
 }
+
+int rib_util_getinput(void) {
+	rib_program = fgets(rib_program, RIB_INPUT_SIZE - 1, stdin);
+	if (fgets(rib_program, RIB_INPUT_SIZE, stdin) != 0) {
+		size_t actualLength = strlen(rib_program);
+
+		/* Sanitize newline if needed */
+		if (actualLength > 0 && rib_program[actualLength - 1] == '\n')
+			rib_program[actualLength - 1] = '\0';
+
+		return 1;
+	}
+
+	return 0;
+}
