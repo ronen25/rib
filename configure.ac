@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([rib], [1.0.0], [ronenk17@gmail.com])
+AC_INIT([rib], [0.1.0], [ronenk17@gmail.com])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_CONFIG_SRCDIR([src/rib.c])
 AC_CONFIG_HEADERS([config.h])
