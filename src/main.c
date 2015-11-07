@@ -32,9 +32,9 @@ int main(int argc, char **argv) {
 	printf("\n==================================================\n");
 
 	while (1) {
+		/* Print prompt and get input */
 		printf("(rib) ");
-		rib_program = fgets(rib_program, RIB_INPUT_SIZE - 1, stdin);
-		rib_program[strlen(rib_program) - 1] = '\0';
+		rib_util_getinput();
 
 		/* Check if program contains anything at all */
 		if (strcmp(rib_program, "") == 0) /* Empty command */
