@@ -279,10 +279,7 @@ void rib_setinput(void) {
 	printf("\nSet new input string (or press ENTER to leave current):\n");
 
 	/* Get input string */
-	/* TODO: Problem if input is INPUT_SIZE-length. Probably need to create a function
-	 * to properly handle input, for example "getinput" */
-	rib_input = fgets(rib_input, RIB_INPUT_SIZE, stdin);
-	rib_input[strlen(rib_input) - 1] = '\0';
+	rib_util_getinput();
 
 	/* Check if a new input string has been entered */
 	if (strcmp(rib_input, "") != 0)
