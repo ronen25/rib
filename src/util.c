@@ -25,8 +25,7 @@ void rib_util_printheader(const char *title, bool isBold) {
 	putc('\n', stdout);
 
 	/* Print the title line */
-	for (size_t i = 0; i < strlen(title) + 1; i++)
-		putc(isBold ? '=' : '-', stdout);
+	rib_util_printseparator(isBold, strlen(title));
 
 	/* To finish, print another newline */
 	putc('\n', stdout);
