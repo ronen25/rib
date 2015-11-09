@@ -51,8 +51,8 @@ void rib_util_printseparator(bool isBold, size_t len) {
 	putc('\n', stdout);
 
 	/* Print actual title */
-	for (int i = 0; i < len + 1; i++)
-		putc(isbold ? '=' : '-', stdout);
+	for (size_t i = 0; i < len + 1; i++)
+		putc(isBold ? '=' : '-', stdout);
 
 	/* Print another newline */
 	putc('\n', stdout);
