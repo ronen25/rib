@@ -29,6 +29,6 @@
 /* Printing utillity methods */
 void rib_util_printheader(const char *title, bool isBold);
 void rib_util_printseparator(bool isBold, size_t len);
-int rib_util_getinput(void);
+int rib_util_getinput(char *buffer);
 
 #endif /* RIB_UTIL_H */

@@ -31,14 +31,14 @@ void rib_util_printheader(const char *title, bool isBold) {
 	putc('\n', stdout);
 }
 
-int rib_util_getinput(void) {
+int rib_util_getinput(char *buffer) {
 	/* Check if there is any input at all */
-	if (fgets(rib_program, RIB_INPUT_SIZE, stdin) != NULL) {
-		size_t actualLength = strlen(rib_program);
+	if (fgets(buffer, RIB_INPUT_SIZE, stdin) != NULL) {
+		size_t actualLength = strlen(buffer);
 
 		/* Sanitize newline if needed */
-		if (actualLength > 0 && rib_program[actualLength - 1] == '\n')
-			rib_program[actualLength - 1] = '\0';
+		if (actualLength > 0 && buffer[actualLength - 1] == '\n')
+			buffer[actualLength - 1] = '\0';
 
 		return 1;
 	}
