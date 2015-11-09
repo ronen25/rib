@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
 	while (1) {
 		/* Print prompt and get input */
 		printf("(rib) ");
-		rib_util_getinput();
+		rib_util_getinput(rib_program);
 
 		/* Check if program contains anything at all */
 		if (strcmp(rib_program, "") == 0) /* Empty command */
