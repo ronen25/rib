@@ -225,38 +225,48 @@ void rib_clearbuffs(void) {
 	memset(rib_mem, 0, sizeof(char) * RIB_MEM_SIZE);
 }
 
-// TODO: Replace this with a better version
 void rib_viewmem(void) {
-	int i, count;
+	int temp, count = 0;
+	int cursorPosition = 9 * (RIB_MEMVIEW_PRINT_COUNT / 2) - (RIB_MEMVIEW_PRINT_COUNT / 2);
 
-	/* Print pointer */
-	printf("\t\t VVV\n");
+	/* Calculatge from where to start printing */
+	int begin = rib_pos - (RIB_MEMVIEW_PRINT_COUNT / 2);
+	if (begin < 0)
+		begin = RIB_MEM_SIZE + begin;
+
+	/* Print current position pointer */
+	for (int i = 0; i < cursorPosition; i++)
+		putc(' ', stdout);
+	printf("VV PTR VV\n");
 
 	/* Print header */
-	printf("\t\t");
-	for (i = rib_pos, count = 0; count != RIB_MEMVIEW_PRINT_COUNT; i++, count++) {
-		printf("| %d |", i);
+	for (temp = begin, count = 0; count < RIB_MEMVIEW_PRINT_COUNT; count++, temp++) {
+		/* Check bounds */
+		if (temp == RIB_MEM_SIZE)
+			temp = 0;
 
-		/* Check if we have reached the end */
-		if (i == RIB_MEM_SIZE - 1)
-			i = -1;
+		/* Print it */
+		printf("| %-5d ", temp);
 	}
 
-	printf("\n\t\t------------------------------------------------------\n");
+	/* Put | */
+	putc('|', stdout);
 
-	/* Print RIB_MEMVIEW_PRINT_COUNT cells */
-	printf("\t\t");
-	for (i = rib_pos, count = 0; count != RIB_MEMVIEW_PRINT_COUNT; i++, count++) {
-		/* If it's an ASCII letter display it as such */
-		printf(isascii(rib_mem[i]) ? "| %c |" : "| %d |", rib_mem[i]);
+	/* Print separator */
+	rib_util_printseparator(false, cursorPosition * 2 + RIB_MEMVIEW_PRINT_COUNT);
 
-		/* Check if we have reached the end */
-		if (i == RIB_MEM_SIZE - 1)
-			i = -1;
+	/* Print values */
+	for (temp = begin, count = 0; count < RIB_MEMVIEW_PRINT_COUNT; count++, temp++) {
+		/* Check bounds */
+		if (temp == RIB_MEM_SIZE)
+			temp = 0;
+
+		/* Print it accordingly */
+		printf(isprint(rib_mem[temp]) ? "| %-5c " : "| %-5d ", rib_mem[temp]);
 	}
 
-	/* Print newline */
-	putc('\n', stdout);
+	/* Put pipe and newline to finish */
+	printf("|\n");
 }
 
 void rib_viewstats(void) {
