@@ -144,7 +144,7 @@ RIB_RETCODE rib_do_command(void) {
 			cmdflag = rib_do_putbyte();
 			break;
 		default:
-			cmdflag = RIB_RETCODE_SYNTAXERR;
+			cmdflag = RIB_RETCODE_OK; /* Skip any unknown characters */
 			break;
 	}
 
@@ -274,18 +274,24 @@ void rib_viewstats(void) {
 }
 
 void rib_setinput(void) {
-	
 	printf("\nCurrent input string is:\n'%s'", rib_input);
-	printf("\nSet new input string (or press ENTER to leave current):\n");
+	printf("\nSet new input string (leave current by pressing ENTER, Ctrl+D to clear):\n");
 
 	/* Get input string */
-	rib_util_getinput();
+	if (rib_util_getinput(rib_input)) {
+		/* Check if a new input string has been entered */
+		if (strcmp(rib_input, "") != 0)
+			printf("\nNew input string set.\n");
+		else
+			printf("\nInput string remains.\n");
+	}
+	else {
+		/* Clear input string */
+		memset(rib_input, 0, sizeof(char) * RIB_INPUT_SIZE);
 
-	/* Check if a new input string has been entered */
-	if (strcmp(rib_input, "") != 0)
-		printf("\nNew input string set.\n");
-	else
-		printf("\nInput string remains.");
+		/* Print message */
+		printf("\nInput string cleared.\n");
+	}
 
 	/* Nullify the input pointer so that rib_readbyte() could re-set it properly */
 	rib_inputptr = NULL;
