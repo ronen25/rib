@@ -46,3 +46,15 @@ int rib_util_getinput(void) {
 
 	return 0;
 }
+
+void rib_util_printseparator(bool isBold, size_t len) {
+	/* Print newline */
+	putc('\n', stdout);
+
+	/* Print actual title */
+	for (int i = 0; i < len + 1; i++)
+		putc(isbold ? '=' : '-', stdout);
+
+	/* Print another newline */
+	putc('\n', stdout);
+}
