@@ -37,13 +37,14 @@
 #define RIB_COMMAND_OUTPUT 		'.'
 
 /* Command configuration */
-#define RIB_MEMVIEW_PRINT_COUNT 8
+#define RIB_MEMVIEW_PRINT_COUNT 9
 
 #include <stdio.h>
 #include <stdbool.h>
 #include <ctype.h>
 
 #include "mem.h"
+#include "util.h"
 
 /* RIB_RETCODE typedef */
 typedef int RIB_RETCODE;
