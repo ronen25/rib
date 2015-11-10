@@ -18,22 +18,23 @@
  */	
 
 #include "rib.h"
+#include "config.h"
 
 int main(int argc, char **argv) {
 	rib_init();
 	atexit(rib_free);
 
 	/* Print header */
-	printf("Ronen's Interactive Brainfuck (RIB");
+	printf("Ronen's Interactive Brainfuck (%s)", PACKAGE_STRING);
 	printf("\n==================================================");
 	printf("\n%d bytes memory\t\tOK\n%d bytes input buffer\t\tOK", RIB_MEM_SIZE, RIB_INPUT_SIZE);
 	printf("\n%d bytes program buffer\tOK", RIB_PROGRAM_SIZE);
 	printf("\n==================================================\n");
 
 	while (1) {
+		/* Print prompt and get input */
 		printf("(rib) ");
-		rib_program = fgets(rib_program, RIB_INPUT_SIZE - 1, stdin);
-		rib_program[strlen(rib_program) - 1] = '\0';
+		rib_util_getinput(rib_program);
 
 		/* Check if program contains anything at all */
 		if (strcmp(rib_program, "") == 0) /* Empty command */
@@ -54,6 +55,15 @@ int main(int argc, char **argv) {
 			rib_viewstats();
 		else if (strcmp(rib_program, "f") == 0) /* Load program from file */
 			rib_fromfile();
+		else if (strcmp(rib_program, "d") == 0) { /* Debug mode */
+			if (rib_debug)
+				rib_debug = false;
+			else
+				rib_debug = true;
+
+			/* Check flag */
+			printf(rib_debug ? "Debugging ON.\n" : "Debugging OFF.\n");
+		}
 		else {
 			/* Begin executing the program */
 			rib_do_program();

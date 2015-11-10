@@ -95,7 +95,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_rib_OBJECTS = src/rib.$(OBJEXT) src/mem.$(OBJEXT) \
-	src/main.$(OBJEXT)
+	src/main.$(OBJEXT) src/util.$(OBJEXT)
 rib_OBJECTS = $(am_rib_OBJECTS)
 rib_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -259,8 +259,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CFLAGS = -Iinclude
-rib_SOURCES = src/rib.c src/mem.c src/main.c
+AM_CFLAGS = -Iinclude -ggdb -Wall -Wextra -pedantic
+rib_SOURCES = src/rib.c src/mem.c src/main.c src/util.c
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -366,6 +366,7 @@ src/$(DEPDIR)/$(am__dirstamp):
 src/rib.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/mem.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/main.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/util.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 
 rib$(EXEEXT): $(rib_OBJECTS) $(rib_DEPENDENCIES) $(EXTRA_rib_DEPENDENCIES) 
 	@rm -f rib$(EXEEXT)
@@ -381,6 +382,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mem.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/rib.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/util.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\

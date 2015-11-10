@@ -37,24 +37,21 @@
 #define RIB_COMMAND_OUTPUT 		'.'
 
 /* Command configuration */
-#define RIB_MEMVIEW_PRINT_COUNT 8
+#define RIB_MEMVIEW_PRINT_COUNT 9
 
 #include <stdio.h>
 #include <stdbool.h>
 #include <ctype.h>
 
 #include "mem.h"
+#include "util.h"
 
 /* RIB_RETCODE typedef */
 typedef int RIB_RETCODE;
 
 /* Booleans for configuration */
-static bool rib_verbose;
-static bool rib_interactive_input;
-
-#include <stdio.h>
-#include <stdbool.h>
-#include <ctype.h>
+bool rib_debug;
+bool rib_interactive_input;
 
 /* Init/free functions */
 void rib_init(void);
@@ -79,5 +76,8 @@ void rib_viewstats(void);
 void rib_viewmem(void);
 void rib_setinput(void);
 void rib_fromfile(void);
+
+char *rib_find_rbracket(char *scanbegin);
+char *rib_find_lbracket(char *scanbegin);
 
 #endif /* RIB_H */
