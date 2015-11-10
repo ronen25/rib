@@ -34,3 +34,7 @@ $ make all
 ```
 $ rib
 ```
+
+### Notes
+* The interpreter currently supports inputting only one-line programs (see issues).
+* No proper testing done (no CMocka support yet), so if you find any bugs please report them.
