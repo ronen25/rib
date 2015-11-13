@@ -22,4 +22,5 @@ AC_CHECK_HEADER_STDBOOL
 # Checks for library functions.
 AC_CHECK_FUNCS([atexit isascii memset])
 
+# Output
 AC_OUTPUT([Makefile])
