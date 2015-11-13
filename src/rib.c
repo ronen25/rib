@@ -302,7 +302,7 @@ void rib_dohelp(void) {
 	printf("\np - View pointer position\nv - View complete memory status");
 	printf("\nc - Clear all memory buffers\ni - Set input string");
 	printf("\nl - Load program from file");
-	printf("\nq - Quit the program");
+	printf("\nq - Quit the program\n");
 }
 
 void rib_fromfile(void) {
