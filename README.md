@@ -21,14 +21,9 @@ RIB uses [BrainFuck.tk](http://www.brainfuck.tk) as a reference implementation.
 ```
 $ git clone https://github.com/ronen25/rib
 ```
-* Run the following commands:
+* Compile the interpreter:
 ```
-$ ./configure
-$ make all
-```
-* (Optional) install using the following command (root permissions may be required):
-```
-# make install
+$ make
 ```
 * Run the interpreter:
 ```
